@@ -1,0 +1,11 @@
+{
+  "name": "sherwoodresapp",
+  "version": "1.0.0",
+  "description": "A web application for the Sherwood Private Road Residents Association",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oliver Fox",
+  "license": "ISC"
+}
