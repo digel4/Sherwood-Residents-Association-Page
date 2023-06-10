@@ -11,6 +11,7 @@ export const AuthContext = React.createContext({});
 
 export const useAuthContext = () => React.useContext(AuthContext);
 
+
 export const AuthContextProvider = ({
     children,
 }) => {
