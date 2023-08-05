@@ -1,15 +1,18 @@
 import NewsItem from "./NewsItem"
-import { news } from '../../dummyData/data'
+import {getCollection} from '../../firebase/firestore/getData'
 
-export default function NewsAndEvents() {
+
+export default async function NewsAndEvents() {
+  const newsItemsArr = await getCollection("news-&-events")
+  
   return (
-      <section>
-        <h1>This is the News and Events page</h1>
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <h1>News and Events page</h1>
         { 
-          news.map(( newsItem, i ) => <NewsItem content={newsItem.content} title={newsItem.title} date={newsItem.date} key={i}  />)
+          newsItemsArr.map(( newsItem, i ) => <NewsItem content={newsItem.data.content} title={newsItem.data.title} date={newsItem.data.date} key={i}  />)
         }
 
-      </section>
+      </main>
 
   )
 }
