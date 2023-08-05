@@ -1,4 +1,4 @@
-import NewsItem from "./NewsItem"
+import NewsItem from "./newsItem"
 import {getCollection} from '../../firebase/firestore/getData'
 
 
