@@ -1,17 +1,12 @@
-import Link from 'next/link';
+
 import { useRouter } from 'next/navigation'
+import NavBar from './partials/NavBar';
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
         <h1>Hello World!</h1>
-        <ul>
-          <li>
-            <Link href="/pages/signin">Sign-in</Link>
-            <Link href="/">Home</Link>
-          </li>
-        </ul>
       </div>
     </main>
   )

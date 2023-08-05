@@ -1,7 +1,11 @@
 'use client'
-import './globals.css'
+import './styles/globals.scss'
+import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { AuthContextProvider } from '@/context/AuthContext'
 import { Inter } from 'next/font/google'
+import { useEffect } from 'react';
+import NavBar from './partials/NavBar';
+import Footer from './partials/Footer';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,6 +31,10 @@ const inter = Inter({ subsets: ['latin'] })
 
 // code from freecodecamp
 export default function RootLayout({ children }) {
+  useEffect(() => {
+
+}, []);
+
   return (
     <html lang="en">
       {/*
@@ -35,9 +43,11 @@ export default function RootLayout({ children }) {
       */}
       <head />
       <body>
+        <NavBar />
         <AuthContextProvider>
           {children}
         </AuthContextProvider>
+        <Footer />
       </body>
     </html>
   )
