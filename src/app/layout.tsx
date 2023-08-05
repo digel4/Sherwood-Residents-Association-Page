@@ -4,8 +4,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { AuthContextProvider } from '@/context/AuthContext'
 import { Inter } from 'next/font/google'
 import { useEffect } from 'react';
-import NavBar from './partials/NavBar';
-import Footer from './partials/Footer';
+import NavBar from './partials/navBar';
+import Footer from './partials/footer';
 
 const inter = Inter({ subsets: ['latin'] })
 
