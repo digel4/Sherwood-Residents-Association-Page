@@ -1,6 +1,6 @@
 import { DocumentData, Timestamp } from "firebase/firestore"
 
-export default interface newsItem {
+export default interface blogItem {
   id: string,
   data: DocumentData
 }

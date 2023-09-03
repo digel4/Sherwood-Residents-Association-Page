@@ -1,18 +1,20 @@
 'use client'
 import React from "react";
 import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import { blogService } from "@/services/blogService";
  
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { getCollection } from "@/firebase/firestore/getData";
+
 import Link from 'next/link';
-import newsItem from "@/interfaces/newsItem";
+import blogItem from "@/interfaces/blogItem";
+import { BlogItemCard } from "@/app/components/admin/BlogItemCard";
 
 
 function Page() {
   const { user } = useAuthContext()
   const router = useRouter()
-  const [newsItems, setNewsItems] = React.useState<newsItem[]>([])
+  const [blogItems, setBlogItems] = React.useState<blogItem[]>([])
 
   React.useEffect(() => {
 
@@ -24,23 +26,25 @@ function Page() {
   }, [user])
 
   React.useEffect(() => {
-    const fetchNewsItems = async () => {
-        const data = await getCollection("news-&-events");
-
-        setNewsItems(data)
-      }
-      fetchNewsItems()
-        .catch(console.error);    
+    const fetchnewsItems = async () => {
+      setBlogItems(await blogService.getAllBlogItems())
+    }
+    fetchnewsItems()
+      .catch(console.error);    
   }, [])
 
-  const renderNewsItems = () => {
-    if (newsItems.length === 0) {
+  const removeItem = (id: string) => {
+    blogService.removeBlogItemById(id)
+  }
+
+  const renderBlogItems = () => {
+    if (blogItems.length === 0) {
       return <div>Loading...</div>
     }
     return (
-      newsItems.map( (item) => {
+      blogItems.map( (item) => {
         return (
-            <Link href={`/admin/news-&-events/edit-item/${item.id}`} >{item.data.title}</Link>
+            <BlogItemCard content={item.data.content} title={item.data.title} date={Date.parse(item.data.date).toString()} removeItem={removeItem} id={item.id} key={item.id}/>
         )
       } )
     )
@@ -53,11 +57,7 @@ function Page() {
       <main>
           <h1>Admin Panel</h1>
           <button >Edit Events</button>
-          { renderNewsItems()}
-            
-
-    
-          
+          { renderBlogItems() }          
       </main>
 
   );

@@ -1,22 +1,41 @@
 import firebase_app from "../config";
 import { collection, getFirestore, doc, getDoc, getDocs } from "firebase/firestore";
+import blogItem from "@/interfaces/blogItem";
 
 const db = getFirestore(firebase_app)
+// async function getDoument(collection: string, id: string) {
+
+//     let docRef = doc(db, collection, id);
+
+//     let result = null;
+//     let error = null;
+
+//     try {
+//         result = await getDoc(docRef);
+//     } catch (e) {
+//         error = e;
+
+//     }
+
+//     return { result, error };
+// }
+
 async function getDoument(collection: string, id: string) {
+    const docRef = doc(db, collection, id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        const dataObj: blogItem = {
+            id: docSnap.id,
+            data: docSnap.data()
+        }
+        return dataObj; 
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+        return null;
+      }
 
-    let docRef = doc(db, collection, id);
 
-    let result = null;
-    let error = null;
-
-    try {
-        result = await getDoc(docRef);
-    } catch (e) {
-        error = e;
-
-    }
-
-    return { result, error };
 }
 
 async function getCollection(collectionName: string) {
@@ -30,7 +49,7 @@ async function getCollection(collectionName: string) {
                 id: doc.id,
                 data: doc.data()
             }
-            console.log(dataObj)
+            //console.log(dataObj)
             //return doc.data()
             return dataObj
 

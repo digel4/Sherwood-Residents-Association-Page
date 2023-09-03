@@ -1,4 +1,4 @@
-
+//"use client"
 import React from 'react';
 import {
     onAuthStateChanged,
@@ -16,7 +16,7 @@ export const useAuthContext = () => React.useContext(AuthContext);
 export const AuthContextProvider = ({
     children,
 }) => {
-    const [user, setUser] = React.useState(null);
+    const [user, setUser] = React.useState<object | null>(null);
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {

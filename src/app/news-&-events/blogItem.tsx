@@ -1,4 +1,4 @@
-export default function NewsItem({title, content, date}) {
+export default function blogItem({title, content, date}) {
 
   return (
       <section>
