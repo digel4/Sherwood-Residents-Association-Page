@@ -1,4 +1,6 @@
-import Link from "next/link"
+import Link from "next/link";
+import styles from '@/app/styles/BlogItemCard.module.scss';
+
 
 interface BlogItemCardProps {
   title: String,
@@ -11,7 +13,7 @@ interface BlogItemCardProps {
 export function BlogItemCard({title, content, date, id, removeItem }: BlogItemCardProps) {
 
   return (
-      <section>
+      <section className={styles.container}>
         <h2>{title}</h2>
         <h5>{date}</h5>
         <p>{content}</p>
