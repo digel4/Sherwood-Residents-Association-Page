@@ -1,10 +1,13 @@
 import { getCollection, getDoument } from "@/firebase/firestore/getData";
+import { addDocument, updateDocument } from "@/firebase/firestore/addData";
+import { deleteDocument } from "@/firebase/firestore/deleteData";
 
 export const blogRepo = {
   getAllBlogItems,
   removeBlogItemById,
   getBlogItemById,
-  editBlogItemById
+  editBlogItemById,
+  createBlogItem
 }
 
 async function getAllBlogItems() {
@@ -16,10 +19,20 @@ async function getBlogItemById(id: string) {
 }
 
 async function removeBlogItemById(id: string) {
-  return ""
+  return await deleteDocument("news-&-events", id)
 }
 
-async function editBlogItemById(id: string) {
-  return "Hit edit blog item in repo"
+async function editBlogItemById(id: string, data: object) {
+  // return "Hit edit blog item in repo"
+  return await updateDocument("news-&-events", id, data)
 }
 
+async function createBlogItem(data: object) {
+  // return "Hit edit blog item in repo"
+  return await addDocument("news-&-events", data)
+}
+
+async function deleteBlogItem(data: object) {
+  // return "Hit edit blog item in repo"
+  
+}

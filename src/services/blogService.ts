@@ -4,7 +4,8 @@ export const blogService = {
   getAllBlogItems,
   removeBlogItemById,
   getBlogItemById,
-  editBlogItemById
+  editBlogItemById,
+  createBlogItem
 }
 
 async function getAllBlogItems() {
@@ -19,6 +20,11 @@ async function removeBlogItemById(id: string) {
   return blogRepo.removeBlogItemById(id);
 }
 
-async function editBlogItemById(id: string) {
-  return blogRepo.editBlogItemById(id);
+async function editBlogItemById(id: string, data: object) {
+  return blogRepo.editBlogItemById(id, data);
 }
+
+async function createBlogItem(data: object) {
+  return blogRepo.createBlogItem(data);
+}
+
