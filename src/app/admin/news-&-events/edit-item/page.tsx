@@ -4,6 +4,7 @@ import { useAuthContext } from "@/context/AuthContext";
 import { useRouter, useSearchParams} from "next/navigation";
 import blogItem from "@/interfaces/blogItem";
 import { blogService } from "@/services/blogService";
+import styles from '@/app/styles/EditBlogItem.module.scss';
 
 
 
@@ -28,17 +29,14 @@ function Page() {
     const fetchBlogItem = async () => {
         if(blogItemId) {
             setBlogItem(await blogService.getBlogItemById(blogItemId.toString()));
-            //setTitle(blogItem?.data.title);
-            //setContent(blogItem?.data.content);
+            setTitle(blogItem?.data.title);
+            setContent(blogItem?.data.content);
             return;
         }
         setBlogItem(null);
     }
     fetchBlogItem()
       .then( () => {
-        
-    //     console.log(`in use effect. Title is: ${title}`)
-    //     console.log(`in use effect. Content is: ${content}`)
       })
     .catch(console.error); 
     
@@ -54,10 +52,12 @@ function Page() {
 		setTitle(event.target.value);
 	};
 
-  const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
+    //event.preventDefault();
     console.log(title);
-    console.log(content);
+    console.log(blogItem);
+    await blogService.editBlogItemById('placeholderIdString')
+      .then(data => console.log(data));
   };
 
   const renderBlogItem = () => {
@@ -73,15 +73,16 @@ function Page() {
     // }
     // console.log(`in renderBlogItem. Title is: ${title}`)
     // console.log(`in renderBlogItem. Content is: ${content}`)
+
     return (
-        <div>
+        <div className={styles.container}>
           <form>
-            <div><input type="text"  value={blogItem.data.title} onChange={handleTitleChange}></input></div>
-            <div><input type="text"  value={blogItem.data.content} onChange={handleContentChange}></input></div>
-            <button type="submit">Submit</button>
+            <div><input type="text" value={title} onChange={handleTitleChange}></input></div>
+            <div><input type="text" value={content} onChange={handleContentChange}></input></div>
+            <button type="button" onClick={handleSubmit}>Submit</button>
             
-            <h1>blogItem.data.title</h1>
-            <p>blogItem.data..content</p>
+            {/* <h1>{blogItem.data.title}</h1> */}
+            {/* <p>{blogItem.data.content}</p> */}
           </form>
           
         </div>
@@ -92,7 +93,7 @@ function Page() {
   return (
       <main>
         { renderBlogItem() }
-          <h1>you reached blog</h1>
+          {/* <h1>you reached blog</h1> */}
       </main>
 
   );
