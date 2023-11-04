@@ -3,7 +3,8 @@ import { getCollection, getDoument } from "@/firebase/firestore/getData";
 export const blogRepo = {
   getAllBlogItems,
   removeBlogItemById,
-  getBlogItemById
+  getBlogItemById,
+  editBlogItemById
 }
 
 async function getAllBlogItems() {
@@ -16,5 +17,9 @@ async function getBlogItemById(id: string) {
 
 async function removeBlogItemById(id: string) {
   return ""
+}
+
+async function editBlogItemById(id: string) {
+  return "Hit edit blog item in repo"
 }
 

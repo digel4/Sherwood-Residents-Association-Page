@@ -3,7 +3,8 @@ import { blogRepo } from "@/repos/blogRepo";
 export const blogService = {
   getAllBlogItems,
   removeBlogItemById,
-  getBlogItemById
+  getBlogItemById,
+  editBlogItemById
 }
 
 async function getAllBlogItems() {
@@ -16,4 +17,8 @@ async function getBlogItemById(id: string) {
 
 async function removeBlogItemById(id: string) {
   return blogRepo.removeBlogItemById(id);
+}
+
+async function editBlogItemById(id: string) {
+  return blogRepo.editBlogItemById(id);
 }
