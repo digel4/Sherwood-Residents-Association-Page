@@ -25,16 +25,27 @@ function Page() {
       }
   }, [user])
 
+  const fetchnewsItems = async () => {
+    await blogService.getAllBlogItems()
+      .then(res => {
+        setBlogItems(res)
+      })
+      .catch(console.error);  
+  }
+  
+    
+
   React.useEffect(() => {
-    const fetchnewsItems = async () => {
-      setBlogItems(await blogService.getAllBlogItems())
-    }
     fetchnewsItems()
-      .catch(console.error);    
   }, [])
 
-  const removeItem = (id: string) => {
-    blogService.removeBlogItemById(id)
+  const removeItem = async (id: string) => {
+    console.log(id)
+    await blogService.removeBlogItemById(id)
+      .then(data => {
+        fetchnewsItems()
+        console.log(data)
+      })
   }
 
   const renderBlogItems = () => {
@@ -44,7 +55,7 @@ function Page() {
     return (
       blogItems.map( (item) => {
         return (
-            <BlogItemCard content={item.data.content} title={item.data.title} date={Date.parse(item.data.date).toString()} removeItem={removeItem} id={item.id} key={item.id}/>
+            <BlogItemCard content={item.data.content} title={item.data.title} date={Date.parse(item.data.date).toString()} removeItem={() => removeItem(item.id)} id={item.id} key={item.id}/>
         )
       } )
     )

@@ -5,61 +5,70 @@ import { useRouter, useSearchParams} from "next/navigation";
 import blogItem from "@/interfaces/blogItem";
 import { blogService } from "@/services/blogService";
 import styles from '@/app/styles/EditBlogItem.module.scss';
-
+import dynamic from "next/dynamic";
+import 'suneditor/dist/css/suneditor.min.css';
 
 
 function Page() {
   const { user } = useAuthContext()
   const router = useRouter()
   const [blogItem, setBlogItem] = React.useState<blogItem | null> ();
-  const [title, setTitle] = React.useState<string> ("");
-  const [content, setContent] = React.useState<string> ("");
+  const [title, setTitle] = React.useState<string>("");
+  const [content, setContent] = React.useState<string>("");
+  const titleRef = React.useRef("");
+  const contentRef = React.useRef("");
   const searchParams = useSearchParams()
   const blogItemId = searchParams.get('id')
   //const newsItems = await getCollection("news-&-events");
 
   React.useEffect(() => {
-    console.log(user)
+    //console.log(user)
       if (user === null) {
           router.push("/admin/login")
       }
   }, [user]);
 
-  React.useEffect(() => {
-    const fetchBlogItem = async () => {
-        if(blogItemId) {
-            setBlogItem(await blogService.getBlogItemById(blogItemId.toString()));
-            setTitle(blogItem?.data.title);
-            setContent(blogItem?.data.content);
-            return;
-        }
-        setBlogItem(null);
-    }
-    fetchBlogItem()
-      .then( () => {
+  const fetchBlogItem = async (blogItemId: string) => {
+    await blogService.getBlogItemById(blogItemId.toString())
+      .then(res => {
+        setBlogItem(res);
+        setTitle(res?.data.title);
+        setContent(res?.data.content);
       })
-    .catch(console.error); 
+  }
+
+  React.useEffect(() => {
+    if(blogItemId) {
+      fetchBlogItem(blogItemId);
+    } else {
+      setBlogItem(null);
+    }
     
             
 
   }, []);
 
-  const  handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setContent(event.target.value);
+  const  handleContentChange = (newContent: string) => {
+		contentRef.current = newContent;
 	};
 
   const  handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setTitle(event.target.value);
+		titleRef.current = event.target.value;
 	};
 
   const handleSubmit = async () => {
-    //event.preventDefault();
-    console.log(title);
-    console.log(blogItem);
-    await blogService.editBlogItemById('placeholderIdString')
-      .then(data => console.log(data));
+    if (blogItemId) {
+      await blogService.editBlogItemById(blogItemId, {title: titleRef.current, content: contentRef.current})
+        .then(data => {
+          console.log(data)
+          router.push("/admin/news-&-events")
+        });
+    }
+    
   };
-
+  const SunEditor = dynamic(() => import("suneditor-react"), {
+    ssr: false,
+  });
   const renderBlogItem = () => {
     if (blogItem === undefined) {
       return <div>Loading...</div>
@@ -67,22 +76,13 @@ function Page() {
     if (blogItem === null) {
         return <div>News & event item not found</div>
     }
-    // if (title === undefined && content === undefined) {
-    //   console.log("inside if statement")
-    //   return <div>Loading...</div>
-    // }
-    // console.log(`in renderBlogItem. Title is: ${title}`)
-    // console.log(`in renderBlogItem. Content is: ${content}`)
 
     return (
         <div className={styles.container}>
           <form>
-            <div><input type="text" value={title} onChange={handleTitleChange}></input></div>
-            <div><input type="text" value={content} onChange={handleContentChange}></input></div>
-            <button type="button" onClick={handleSubmit}>Submit</button>
-            
-            {/* <h1>{blogItem.data.title}</h1> */}
-            {/* <p>{blogItem.data.content}</p> */}
+            <div><input type="text" defaultValue={title} onChange={handleTitleChange}></input></div>
+            <SunEditor setContents={content} onChange={handleContentChange}/>
+            <button type="button" onClick={handleSubmit} >Submit</button>
           </form>
           
         </div>
