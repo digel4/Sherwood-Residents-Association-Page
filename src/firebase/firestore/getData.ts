@@ -28,6 +28,9 @@ async function getDoument(collection: string, id: string) {
             id: docSnap.id,
             data: docSnap.data()
         }
+        console.log(`dataObj is:
+        ${dataObj}
+        `)
         return dataObj; 
       } else {
         // docSnap.data() will be undefined in this case
