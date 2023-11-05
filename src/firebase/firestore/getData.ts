@@ -20,7 +20,7 @@ const db = getFirestore(firebase_app)
 //     return { result, error };
 // }
 
-async function getDoument(collection: string, id: string) {
+async function getDocument(collection: string, id: string) {
     const docRef = doc(db, collection, id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -64,4 +64,4 @@ async function getCollection(collectionName: string) {
     return querySnapshot
 }
 
-export {getDoument, getCollection}
+export {getDocument, getCollection}
