@@ -1,4 +1,4 @@
-import { getCollection, getDoument } from "@/firebase/firestore/getData";
+import { getCollection, getDocument } from "@/firebase/firestore/getData";
 import { addDocument, updateDocument } from "@/firebase/firestore/addData";
 import { deleteDocument } from "@/firebase/firestore/deleteData";
 
@@ -15,7 +15,7 @@ async function getAllBlogItems() {
 }
 
 async function getBlogItemById(id: string) {
-  return await getDoument("news-&-events", id);   
+  return await getDocument("news-&-events", id);   
 }
 
 async function removeBlogItemById(id: string) {
@@ -32,7 +32,3 @@ async function createBlogItem(data: object) {
   return await addDocument("news-&-events", data)
 }
 
-async function deleteBlogItem(data: object) {
-  // return "Hit edit blog item in repo"
-  
-}
