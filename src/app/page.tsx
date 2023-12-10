@@ -1,6 +1,8 @@
+import gridStyles from '@/app/styles/Main.module.scss';
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className={`${gridStyles.oneCol} ${gridStyles.container}`}>
       <div>
         <h1>Welcome to the Private Road Members Association</h1>
         <img src="/placeholder.jpg"></img>

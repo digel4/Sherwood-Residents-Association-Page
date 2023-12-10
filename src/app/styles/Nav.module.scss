@@ -1,0 +1,12 @@
+.navigationBar {
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  ul {
+    display: flex;
+  }
+
+  li {
+    margin: 4px;
+  }
+}

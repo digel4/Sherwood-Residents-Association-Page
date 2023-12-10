@@ -67,6 +67,7 @@ function Page() {
   return (
       <main>
           <h1>Admin Panel</h1>
+          <button ><Link href="/admin/news-&-events/create-item">Create Event</Link></button>
           <button >Edit Events</button>
           { renderBlogItems() }          
       </main>

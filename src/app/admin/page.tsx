@@ -3,6 +3,10 @@ import React from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
+import gridStyles from '@/app/styles/Main.module.scss';
+
+import styles from '@/app/styles/BlogItemCard.module.scss';
+
 
 function Page() {
     const { user } = useAuthContext()
@@ -15,7 +19,7 @@ function Page() {
     }, [user])
 
     return (
-        <main>
+        <main className={gridStyles.oneCol}>
             <h1>Admin Panel</h1>
 
             <div>

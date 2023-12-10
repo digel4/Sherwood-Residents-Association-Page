@@ -2,6 +2,7 @@
 
 import { FormEvent, FormEventHandler, useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
+import gridStyles from '@/app/styles/Main.module.scss';
 
 export default function ContactUs() {
   const  [name, setName ]= useState("")
@@ -38,7 +39,7 @@ export default function ContactUs() {
 
 
   return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <main className={`${gridStyles.oneCol} ${gridStyles.container}`}>
         <h1>This is the contact us page</h1>
         <form ref={form} onSubmit={sendEmail}>
                 <div id="contact-details">

@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google'
 import { useEffect } from 'react';
 import NavBar from './partials/navBar';
 import Footer from './partials/footer';
+import gridStyles from '@/app/styles/Main.module.scss';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -42,7 +43,7 @@ export default function RootLayout({ children }) {
         head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>
+      <body className={gridStyles.pageContainer}>
         <NavBar />
         <AuthContextProvider>
           {children}

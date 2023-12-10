@@ -1,0 +1,16 @@
+.pageContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.oneCol {
+  grid-column: 1 / 4;
+}
+
+.container {
+  display: flex;
+  //flex-direction: column;
+  width: 100%;
+}

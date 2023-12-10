@@ -3,6 +3,9 @@ import React from "react";
 import BlogItem from "./blogItem"
 import { blogService } from "@/services/blogService";
 import blogItem from "@/interfaces/blogItem";
+import gridStyles from '@/app/styles/Main.module.scss';
+import styles from '@/app/styles/News.module.scss';
+
 
 
 export default function NewsAndEvents() {
@@ -29,7 +32,7 @@ export default function NewsAndEvents() {
   }
   
   return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <main className={`${gridStyles.oneCol} ${gridStyles.container} ${styles.events}`}>
         <h1>News and Events page</h1>
         {renderBlogItems()}
 
